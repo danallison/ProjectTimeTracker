@@ -1,7 +1,7 @@
-<td><%= title %></td>
-<td><%= description %></td>
-<td><%= total_time %></td>
+<li class="timer"><%= ProjectTimeTracker.Extras.Timer.stringify(total_time) %></li>
+<li><%= title %></li>
+<li><%= description %></li>
 
-<td><a href="#/<%= id %>">Show</td>
-<td><a href="#/<%= id %>/edit">Edit</td>
-<td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+<li><a href="#/<%= id %>">Show</li>
+<li><a href="#/<%= id %>/edit">Edit</li>
+<li><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></li>

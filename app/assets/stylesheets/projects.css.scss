@@ -1,3 +1,39 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+div#projects {
+  margin: 0 auto;
+  min-width: 500px;
+  width: 45%;
+}
+
+li {
+  display: inline-block;
+  margin-top: 5px;
+  &.active {
+    background: #ddd;
+  }
+}
+.timer {
+  font-family: 'Cutive Mono', monospace;
+  background: #f44;
+  width: 120px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 5px;
+  opacity: .8;
+  -moz-box-shadow:    inset 0 0 10px rgba(0,0,0,.4);
+  -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,.4);
+  box-shadow:         inset 0 0 10px rgba(0,0,0,.4);
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  &.active {
+    background: #77FCAE;
+    opacity: 1;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}

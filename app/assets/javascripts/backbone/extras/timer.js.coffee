@@ -1,12 +1,12 @@
 class ProjectTimeTracker.Extras.Timer
-  constructor: (@el, @addTo = 0) ->
+  constructor: (@el, @startingTotal = 0) ->
     @startDate = new Date().getTime()
     @expectedNow = @startDate
     @run()
     
   run: ->
     now = new Date().getTime()
-    duration = now - @startDate
+    @totalTime = (now - @startDate) + @startingTotal
     
     next = 1000 - (now - @expectedNow)
     
@@ -14,7 +14,7 @@ class ProjectTimeTracker.Extras.Timer
       next = 0
       @expectedNow = now
     
-    @el.textContent = @stringify(duration + @addTo)
+    @el.textContent = ProjectTimeTracker.Extras.Timer.stringify(@totalTime)
     
     @expectedNow += 1000
     
@@ -27,9 +27,10 @@ class ProjectTimeTracker.Extras.Timer
     t = @
     clearTimeout(t.timeout)
     
-    {startDate: @startingDate, endDate: new Date().getTime() }
+    { startDate: @startingDate, endDate: new Date().getTime(), newTotal: @totalTime }
     
-  stringify: (milliseconds) ->
+
+ProjectTimeTracker.Extras.Timer.stringify = (milliseconds) ->
     seconds = Math.floor(milliseconds / 1000) % 60
     minutes = Math.floor(milliseconds / 1000 / 60) % 60
     hours = Math.floor(milliseconds / 1000 / 60 / 60)

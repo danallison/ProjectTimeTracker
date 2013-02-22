@@ -11,7 +11,7 @@ class ProjectTimeTracker.Views.Projects.IndexView extends Backbone.View
 
   addOne: (project) =>
     view = new ProjectTimeTracker.Views.Projects.ProjectView({model : project})
-    @$("tbody").append(view.render().el)
+    @$("#projects-list").append(view.render().el)
 
   render: =>
     $(@el).html(@template(projects: @options.projects.toJSON() ))
