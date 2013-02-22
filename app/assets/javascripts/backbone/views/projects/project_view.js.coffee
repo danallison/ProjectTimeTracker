@@ -8,6 +8,8 @@ class ProjectTimeTracker.Views.Projects.ProjectView extends Backbone.View
     "click .timer"   : "toggleTimer"
 
   tagName: "ul"
+  
+  className: "project"
 
   destroy: ->
     @model.destroy()
@@ -18,27 +20,38 @@ class ProjectTimeTracker.Views.Projects.ProjectView extends Backbone.View
   toggleTimer: ->
     if @timer
       @stopTimer()
+      $(".project").removeClass("background")
     else
       @startTimer()
       
   startTimer: ->
     @timer = new ProjectTimeTracker.Extras.Timer(@el.children[0], @model.attributes.total_time)
-    $(@el.children[0]).addClass("active")
+    $(".project").addClass("background")
+    $(@el).removeClass("background")
+    
     activeView = ProjectTimeTracker.Extras.ActiveView
     if activeView
       activeView.stopTimer()
     ProjectTimeTracker.Extras.ActiveView = @
     
+    @timedUpdate()
+    
   stopTimer: ->
-    @save()
-    $(@el.children[0]).removeClass("active")
+    clearTimeout(@timeout)
+    @save({ total_time: @timer.end().newTotal })
     @timer = null
     ProjectTimeTracker.Extras.ActiveView = null
-      
-  save: ->
+    
+  timedUpdate: ->
+    @save({ total_time: @timer.totalTime })
+    @timeout = setTimeout( =>
+      @timedUpdate()
+    , 20000)
+    
+  save: (attrs) ->
     @model.unset("created_at")
     @model.unset("updated_at")
-    @model.save({ total_time: @timer.end().newTotal })
+    @model.save(attrs)
   
   render: ->
     $(@el).html(@template(@model.toJSON() ))
