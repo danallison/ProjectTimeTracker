@@ -2,6 +2,9 @@ ProjectTimeTracker.Views.Projects ||= {}
 
 class ProjectTimeTracker.Views.Projects.IndexView extends Backbone.View
   template: JST["backbone/templates/projects/index"]
+  
+  events:
+    "click #new-button" : "newProject"
 
   initialize: () ->
     @options.projects.bind('reset', @addAll)
@@ -11,6 +14,11 @@ class ProjectTimeTracker.Views.Projects.IndexView extends Backbone.View
 
   addOne: (project) =>
     view = new ProjectTimeTracker.Views.Projects.ProjectView({model : project})
+    @$("#projects-list").append(view.render().el)
+
+  newProject: =>
+    console.log(@)
+    view = new ProjectTimeTracker.Views.Projects.NewView({collection: @options.projects })
     @$("#projects-list").append(view.render().el)
 
   render: =>

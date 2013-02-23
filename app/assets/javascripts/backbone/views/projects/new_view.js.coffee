@@ -3,8 +3,10 @@ ProjectTimeTracker.Views.Projects ||= {}
 class ProjectTimeTracker.Views.Projects.NewView extends Backbone.View
   template: JST["backbone/templates/projects/new"]
 
+  tagName: "ul"
+
   events:
-    "submit #new-project": "save"
+    "click .button": "save"
 
   constructor: (options) ->
     super(options)
@@ -14,16 +16,18 @@ class ProjectTimeTracker.Views.Projects.NewView extends Backbone.View
       this.render()
     )
 
-  save: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-
+  save: ->
+    @model.set({ title: @el.children[1].children[0].value })
+    
     @model.unset("errors")
 
     @collection.create(@model.toJSON(),
       success: (project) =>
         @model = project
-        window.location.hash = "/#{@model.id}"
+
+        view = new ProjectTimeTracker.Views.Projects.ProjectView({ model: @model})
+        $("#projects-list").append(view.render().el)
+        @remove()
 
       error: (project, jqXHR) =>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
@@ -31,7 +35,5 @@ class ProjectTimeTracker.Views.Projects.NewView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON() ))
-
-    this.$("form").backboneLink(@model)
 
     return this

@@ -13,7 +13,7 @@ class ProjectTimeTracker.Views.Projects.ProjectView extends Backbone.View
 
   destroy: ->
     @model.destroy()
-    this.remove()
+    @remove()
 
     return false
 
@@ -25,7 +25,7 @@ class ProjectTimeTracker.Views.Projects.ProjectView extends Backbone.View
       @startTimer()
       
   startTimer: ->
-    @timer = new ProjectTimeTracker.Extras.Timer(@el.children[0], @model.attributes.total_time)
+    @timer = new ProjectTimeTracker.Extras.Timer(@el.children[0].children[0], @model.attributes.total_time)
     $(".project").addClass("background")
     $(@el).removeClass("background")
     

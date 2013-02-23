@@ -5,11 +5,17 @@ body {
   background: #eee;
   color: #333;
   font-family: 'Lusitana', serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 18px;
+}
+header {
+  margin: 0;
+  padding-top: 40px;
 }
 h1 {
   border-bottom: rgba(0,0,0,.4) solid 1px;
+  padding-bottom: 1px;
+  text-align: center;
   -moz-box-shadow:    0 5px 10px -5px  rgba(0,0,0,.4);
   -webkit-box-shadow: 0 5px 10px -5px rgba(0,0,0,.4);
   box-shadow:         0 5px 10px -5px rgba(0,0,0,.4);
@@ -34,22 +40,42 @@ ul {
 li {
   display: inline-block;
   margin: 5px 5px 0 0;
+  &:first-child {
+    width: 50%;
+  };
 }
 .timer {
   font-family: 'Cutive Mono', monospace;
-  background: #bbb;//#f44;
+  background: #f55;
   width: 120px;
   text-align: center;
   padding: 6px;
   border-radius: 5px;
-//  -moz-box-shadow:    0 0 10px rgba(0,0,0,.4);
-//  -webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
-//  box-shadow:         0 0 10px rgba(0,0,0,.4);
-
-//  &.active {
-//    background: #77FCAE;
-//  }
   &:hover {
     cursor: pointer;
+  }
+}
+.destroy {
+  position: relative;
+  right: -65px;
+  opacity: .5;
+  &:hover {
+    opacity: 1;
+  };
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}
+.dot {
+  position: relative;
+  bottom: -3px;
+  &.right {
+    right: -2px;
+  }
+  &.left {
+    left: -2px;
   }
 }
